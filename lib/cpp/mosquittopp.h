@@ -29,7 +29,7 @@ Contributors:
 
 #include <cstdlib>
 #include <time.h>
-#include <mosquitto.h>
+#include "mosquitto.h"
 
 namespace mosqpp {
 
@@ -91,13 +91,13 @@ class mosqpp_EXPORT mosquittopp {
 		int threaded_set(bool threaded=true);
 		int socks5_set(const char *host, int port=1080, const char *username=NULL, const char *password=NULL);
 		
-		virtual void on_connect(int rc) {return;};
-		virtual void on_disconnect(int rc) {return;};
-		virtual void on_publish(int mid) {return;};
-		virtual void on_message(const struct mosquitto_message *message) {return;};
-		virtual void on_subscribe(int mid, int qos_count, const int *granted_qos) {return;};
-		virtual void on_unsubscribe(int mid) {return;};
-		virtual void on_log(int level, const char *str) {return;};
+                virtual void on_connect(int /*rc*/) {return;};
+                virtual void on_disconnect(int /*rc*/) {return;};
+                virtual void on_publish(int /*mid*/) {return;};
+                virtual void on_message(const struct mosquitto_message */*message*/) {return;};
+                virtual void on_subscribe(int /*mid*/, int /*qos_count*/, const int */*granted_qos*/) {return;};
+                virtual void on_unsubscribe(int /*mid*/) {return;};
+                virtual void on_log(int /*level*/, const char */*str*/) {return;};
 		virtual void on_error() {return;};
 };
 

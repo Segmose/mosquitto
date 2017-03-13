@@ -46,7 +46,8 @@ libmosquitto.so.${SOVERSION} : ${MOSQ_OBJS}
 	${CROSS_COMPILE}$(CC) -shared $(LIB_LDFLAGS) $^ -o $@ ${LIB_LIBS}
 
 libmosquitto.a : ${MOSQ_OBJS}
-	${CROSS_COMPILE}$(AR) cr $@ $^
+	${CROSS_COMPILE}$(AR) crv $@ $^
+
 mosquitto.o : mosquitto.c mosquitto.h
 	${CROSS_COMPILE}$(CC) $(LIB_CFLAGS) -c $< -o $@
 

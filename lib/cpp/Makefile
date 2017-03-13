@@ -6,7 +6,9 @@ endif
 
 .PHONY : clean install
 
-all : libmosquittopp.so.${SOVERSION}
+MOSQPP_OBJS=mosquittopp.o
+
+all : libmosquittopp.so.${SOVERSION} libmosquittopp.a
 
 install : all
 	$(INSTALL) -d ${DESTDIR}$(prefix)/lib${LIB_SUFFIX}/
@@ -21,10 +23,13 @@ uninstall :
 	-rm -f ${DESTDIR}${prefix}/include/mosquittopp.h
 
 clean :
-	-rm -f *.o libmosquittopp.so.${SOVERSION}
+	-rm -f *.o libmosquittopp.so.${SOVERSION} libmosquittopp.a
 
-libmosquittopp.so.${SOVERSION} : mosquittopp.o
+libmosquittopp.so.${SOVERSION} : ${MOSQPP_OBJS}
 	${CROSS_COMPILE}$(CXX) -shared $(LIB_LDFLAGS) $< -o $@ ../libmosquitto.so.${SOVERSION}
+
+libmosquittopp.a : ${MOSQPP_OBJS}
+	${CROSS_COMPILE}$(AR) cr $@ $^
 
 mosquittopp.o : mosquittopp.cpp mosquittopp.h
 	${CROSS_COMPILE}$(CXX) $(LIB_CXXFLAGS) -c $< -o $@
